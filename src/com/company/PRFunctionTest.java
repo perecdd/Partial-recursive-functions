@@ -13,11 +13,29 @@ class PRFunctionTest {
     @Test
     void f0S(){
         num number = new num(0, 0);
-        S functionS0 = new S(0, number);
-        S f = new S(0, functionS0);
+        Sup functionS0 = new Sup(0, new S(), new ArrayList<>(List.of(number)));
+        Sup f = new Sup(0, new S(), new ArrayList<>(List.of(functionS0)));
         assertEquals(2, f.evaluate(null));
-        assertEquals(2, f.evaluate(new ArrayList<>(Arrays.asList(1))));
-        assertEquals(2, f.evaluate(new ArrayList<>(Arrays.asList(1, 2, 3, 4))));
+
+        boolean error1 = false;
+        try {
+            assertEquals(2, f.evaluate(new ArrayList<>(Arrays.asList(1))));
+        }
+        catch (Exception e){
+            error1 = true;
+        }
+
+        assert error1;
+
+        boolean error2 = false;
+        try {
+            assertEquals(2, f.evaluate(new ArrayList<>(Arrays.asList(1, 2, 3, 4))));
+        }
+        catch (Exception e){
+            error2 = true;
+        }
+
+        assert error2;
     }
 
     // f(0) := 1;
@@ -177,7 +195,7 @@ class PRFunctionTest {
 
     @Test
     void sum(){
-        Pr sum = new Pr(2, new id(1, 1), new S(3, new id(3, 3)));
+        Pr sum = new Pr(2, new id(1, 1), new Sup(3, new S(), new ArrayList<>(List.of(new id(3, 3)))));
         assertEquals(0, sum.evaluate(new ArrayList<>(List.of(0, 0))));
         assertEquals(1, sum.evaluate(new ArrayList<>(List.of(0, 1))));
         assertEquals(10, sum.evaluate(new ArrayList<>(List.of(5, 5))));

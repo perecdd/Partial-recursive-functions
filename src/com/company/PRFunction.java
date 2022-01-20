@@ -28,14 +28,19 @@ public class PRFunction {
 }
 
 class S extends PRFunction {
-    public S(Integer argumentNumber, PRFunction someFunction) {
+    public S() {
         super(
                 FunctionClass.S,
-                argumentNumber,
+                1,
                 new Function<>() {
                     @Override
                     public Integer apply(ArrayList<Integer> integers) {
-                        return someFunction.evaluate(integers) + 1;
+                        if(integers.size() == 1) {
+                            return integers.get(0) + 1;
+                        }
+                        else{
+                            throw new RuntimeException("Incorrect number of arguments in the function");
+                        }
                     }
                 }
         );
