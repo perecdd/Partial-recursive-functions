@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.function.Function;
 
 public class PRFunction {
+    public PRFunction(PRFunction prFunction) {
+        this.function = prFunction.function;
+        this.functionClass = prFunction.functionClass;
+        this.argumentNumber = prFunction.argumentNumber;
+    }
+
     public Integer evaluate(ArrayList<Integer> values){
         return function.apply(values);
     }
@@ -39,7 +45,7 @@ class S extends PRFunction {
                             return integers.get(0) + 1;
                         }
                         else{
-                            throw new RuntimeException("Incorrect number of arguments in the function");
+                            throw new RuntimeException("Incorrect number of arguments in the function in S()");
                         }
                     }
                 }
@@ -59,7 +65,7 @@ class id extends PRFunction{
                             return integers.get(argumentIndex - 1); // Numbering starts from 1
                         }
                         else{
-                            throw new RuntimeException("Incorrect number of arguments in the function");
+                            throw new RuntimeException("Incorrect number of arguments in the function in id");
                         }
                     }
                 });
@@ -95,7 +101,7 @@ class Pr extends PRFunction {
                     public Integer apply(ArrayList<Integer> integers) {
                         if(integers == null) integers = new ArrayList<>();
                         if(argumentNumber != integers.size()){
-                            throw new RuntimeException("Incorrect number of arguments in the function");
+                            throw new RuntimeException("Incorrect number of arguments in the function in Pr");
                         }
                         ArrayList<Integer> arrayListForFirst = new ArrayList<>(integers);
                         arrayListForFirst.remove(arrayListForFirst.size() - 1);
@@ -125,9 +131,9 @@ class Sup extends PRFunction {
                     @Override
                     public Integer apply(ArrayList<Integer> integers) {
                         if(integers == null) integers = new ArrayList<>();
-                        if(argumentNumber != integers.size()){
-                            throw new RuntimeException("Incorrect number of arguments in the function");
-                        }
+                        //if(argumentNumber != integers.size()){
+                        //    throw new RuntimeException("Incorrect number of arguments in the function in Sup");
+                        //}
                         ArrayList<Integer> newIntegers = new ArrayList<>();
                         for(PRFunction prFunction : fromFunctions){
                             newIntegers.add(prFunction.evaluate(integers));
@@ -148,7 +154,7 @@ class Min extends PRFunction {
                     public Integer apply(ArrayList<Integer> integers) {
                         if(integers == null) integers = new ArrayList<>();
                         if(argumentNumber != integers.size()){
-                            throw new RuntimeException("Incorrect number of arguments in the function");
+                            throw new RuntimeException("Incorrect number of arguments in the function in Min");
                         }
                         integers.add(0);
                         while(someFunction.evaluate(integers) != 0){
