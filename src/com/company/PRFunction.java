@@ -84,11 +84,6 @@ class num extends PRFunction{
                     }
                 });
     }
-
-    @Override
-    public Integer evaluate(ArrayList<Integer> values) {
-        return function.apply(values);
-    }
 }
 
 class Pr extends PRFunction {
@@ -98,8 +93,9 @@ class Pr extends PRFunction {
                 argumentNumber,
                 new Function<>() {
                     @Override
-                    public Integer apply(ArrayList<Integer> integers) {
-                        if(integers == null) integers = new ArrayList<>();
+                    public Integer apply(ArrayList<Integer> args) {
+                        ArrayList<Integer> integers = new ArrayList<>();
+                        if(args != null) integers.addAll(args);
                         if(argumentNumber != integers.size()){
                             throw new RuntimeException("Incorrect number of arguments in the function in Pr");
                         }
@@ -129,11 +125,9 @@ class Sup extends PRFunction {
                 argumentNumber,
                 new Function<>() {
                     @Override
-                    public Integer apply(ArrayList<Integer> integers) {
-                        if(integers == null) integers = new ArrayList<>();
-                        //if(argumentNumber != integers.size()){
-                        //    throw new RuntimeException("Incorrect number of arguments in the function in Sup");
-                        //}
+                    public Integer apply(ArrayList<Integer> args) {
+                        ArrayList<Integer> integers = new ArrayList<>();
+                        if(args != null) integers.addAll(args);
                         ArrayList<Integer> newIntegers = new ArrayList<>();
                         for(PRFunction prFunction : fromFunctions){
                             newIntegers.add(prFunction.evaluate(integers));
@@ -151,8 +145,9 @@ class Min extends PRFunction {
                 argumentNumber,
                 new Function<>() {
                     @Override
-                    public Integer apply(ArrayList<Integer> integers) {
-                        if(integers == null) integers = new ArrayList<>();
+                    public Integer apply(ArrayList<Integer> args) {
+                        ArrayList<Integer> integers = new ArrayList<>();
+                        if(args != null) integers.addAll(args);
                         if(argumentNumber != integers.size()){
                             throw new RuntimeException("Incorrect number of arguments in the function in Min");
                         }

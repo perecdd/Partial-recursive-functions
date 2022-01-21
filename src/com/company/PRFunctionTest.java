@@ -167,12 +167,22 @@ class PRFunctionTest {
     // d(5) = 4; d(0) = 0
     @Test
     void d(){
-        // d(id(1, 1)) := Pr[0;
+        // d(id(1, 1)) := Pr[0; id(2, 1)];
         Pr d = new Pr(1, new num(0, 0), new id(2, 1));
         assertEquals(0, d.evaluate(new ArrayList<>(List.of(0))));
         assertEquals(0, d.evaluate(new ArrayList<>(List.of(1))));
         assertEquals(4, d.evaluate(new ArrayList<>(List.of(5))));
         assertEquals(344, d.evaluate(new ArrayList<>(List.of(345))));
+    }
+
+    @Test
+    void MinD(){
+        Pr d = new Pr(1, new num(0, 0), new id(2, 1));
+        Pr sub = new Pr(2, new id(1, 1), new Sup(3, d, new ArrayList<PRFunction>(List.of(new id(3, 3)))));
+        Min min = new Min(1, sub);
+        assertEquals(0, min.evaluate(new ArrayList<>(List.of(0))));
+        assertEquals(1, min.evaluate(new ArrayList<>(List.of(1))));
+        assertEquals(5, min.evaluate(new ArrayList<>(List.of(5))));
     }
 
     @Test

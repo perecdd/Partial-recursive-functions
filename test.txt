@@ -1,2 +1,1 @@
-test(2) := S(id(2, 2));
-main(3) := Pr[id(2, 2); test(0, id(4, 4))];
+main(2) := Pr[id(1, 1); S(id(3, 3))];
